@@ -1,5 +1,6 @@
 package cn.true123.files;
 
+import cn.true123.utils.PropertiesUtils;
 import cn.true123.utils.StringUtil;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class TempFileFactory {
 
     public  synchronized TempFile getTemFile(String fileName) {
         if (fileMap.get(fileName) == null) {
-            String filePath = PropertiesFileLoader.getInstance().getProperty(StringUtil.getPath("path"));
+            String filePath = PropertiesUtils.getPath();
             File file = new File(filePath);
             if(!file.exists()){
                 file.mkdirs();

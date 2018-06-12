@@ -7,7 +7,7 @@ import cn.true123.listener.DownloadListener;
 public class T {
     public static void main(String[] args) {
         DownLoadInterface downLoadInterface = DownLoader.getInstance();
-        downLoadInterface.setUrl("http://down.360safe.com/360ap/360freewifi_beta.apk");
+        downLoadInterface.setUrl("http://mirror.kakao.com/eclipse/mat/1.7/rcp/MemoryAnalyzer-1.7.0.20170613-win32.win32.x86.zip");
 
         downLoadInterface.setOnDownLoadListener(new DownloadListener() {
             @Override

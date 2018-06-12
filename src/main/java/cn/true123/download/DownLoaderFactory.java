@@ -11,6 +11,7 @@ import cn.true123.files.TempFileFactory;
 import cn.true123.listener.DownloadListener;
 import cn.true123.listener.WorkerListener;
 import cn.true123.utils.ListUtils;
+import cn.true123.utils.PropertiesUtils;
 import cn.true123.utils.StringUtil;
 import cn.true123.utils.Utils;
 
@@ -160,7 +161,7 @@ public class DownLoaderFactory implements DownLoadInterface, WorkerListener {
     }
 
     private boolean checkPath() {
-        String path = PropertiesFileLoader.getInstance().getProperty(StringUtil.getPath("path"));
+        String path = PropertiesUtils.getPath();
         return StringUtil.isNotEmpty(path);
     }
 

@@ -2,9 +2,12 @@ package cn.true123.excuters;
 
 import cn.true123.download.DL;
 import cn.true123.files.MRandomAccessFile;
+import cn.true123.files.PropertiesFileLoader;
 import cn.true123.httpClient.DownLoadHttpClient;
 import cn.true123.httpClient.HttpGet;
 import cn.true123.httpClient.IHttpResponse;
+import cn.true123.utils.PropertiesUtils;
+import cn.true123.utils.StringUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +33,8 @@ public class SingleThreadDownLoadWorker extends DownLoadWorker {
             long available = in.available();
             byte[] b = new byte[1024];
             int length;
-            MRandomAccessFile randomAccessFile = MRandomAccessFile.getInstance(dl.getFileName(), dl.getS());
+            String path = PropertiesUtils.getPath();
+            MRandomAccessFile randomAccessFile = MRandomAccessFile.getInstance(path+dl.getFileName(), dl.getS());
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             while (run && (length = in.read(b)) > 0) {
                 byteBuffer.flip();

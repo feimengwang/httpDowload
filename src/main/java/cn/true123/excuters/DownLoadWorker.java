@@ -10,6 +10,7 @@ import cn.true123.httpClient.HttpGet;
 import cn.true123.httpClient.IHttpResponse;
 import cn.true123.listener.DownloadListener;
 import cn.true123.listener.WorkerListener;
+import cn.true123.utils.PropertiesUtils;
 import cn.true123.utils.StringUtil;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class DownLoadWorker implements Worker {
                 while (run && (length = in.read(b)) > 0 && dl.getS() < dl.getE()) {
                     byteBuffer.clear();
                     byteBuffer.put(b,0,length);
-                    String path = PropertiesFileLoader.getInstance().getProperty(StringUtil.getPath("path"));
+                    String path = PropertiesUtils.getPath();
                     MRandomAccessFile.getInstance(path+dl.getFileName(), dl.getS()).write(byteBuffer).close();
                     dl.setS(dl.getS() + length);
                     flush();
