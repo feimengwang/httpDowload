@@ -10,4 +10,6 @@ public class Constants {
 
     //property key path
     public static final String PATH = "path";
+    // thread size
+    public static final int COUNT = 10;
 }

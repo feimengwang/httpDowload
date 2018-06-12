@@ -20,10 +20,9 @@ public class DownLoaderFactory implements DownLoadInterface,
     private String url;
     private DownLoaderListener listener;
     private int count = 5;
-    private List<DL> dlList = new ArrayList<DL>();
-    private List<Worker> threadList = new ArrayList<Worker>();
+    private List<DL> dlList = new ArrayList<>();
+    private List<Worker> threadList = new ArrayList<>();
     private long fileSize;
-    private float prePercent;
     private DLModel dlModel;
     DownLoadExecutor executor;
 
@@ -78,8 +77,6 @@ public class DownLoaderFactory implements DownLoadInterface,
             if (ListUtils.isNotEmpty(dls)) {
                 for (DL dl : dls) {
                     Worker thread = new DownLoadWorker(dl);
-                    // thread.setDownLoaderlistener(DownLoaderFactory.this);
-                    // thread.start();
                     if (!threadList.contains(thread)) {
                         threadList.add(thread);
                     }
@@ -88,30 +85,15 @@ public class DownLoaderFactory implements DownLoadInterface,
                     }
                 }
                 startWorker(threadList);
-                // return;
             } else {
-                if (fileSize != 0) {
-                    long average = fileSize / count;
-                    for (int i = 0; i < count; i++) {
-                        long s = average * i;
-                        long e = average * (i + 1);
-                        if (e > fileSize) {
-                            e = fileSize;
-                        }
-                        System.out.println("s=" + s + ";e=" + e);
-                        DL dl = new DL(s, e, url);
-
-                        if (!dlList.contains(dl)) {
-                            dlList.add(dl);
-                        }
-                        Worker thread = new DownLoadWorker(dl);
-                        // thread.setDownLoaderlistener(DownLoaderFactory.this);
-                        // thread.start();
+                if (fileSize > 0) {
+                    dlList = ListUtils.toList(fileSize, count, (s, e) -> new DL(s, e, url));
+                    dlList.stream().forEach(item -> {
+                        Worker thread = new DownLoadWorker(item);
                         if (!threadList.contains(thread)) {
                             threadList.add(thread);
                         }
-
-                    }
+                    });
                     startWorker(threadList);
                 }
             }
@@ -121,7 +103,6 @@ public class DownLoaderFactory implements DownLoadInterface,
     private void startWorker(List<Worker> threadList) {
         executor = DownLoadExecutor.instance().newFixedThreadPool();
         for (Worker thread : threadList) {
-            //thread.start();
             executor.execute(thread);
         }
     }
