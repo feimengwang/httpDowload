@@ -4,7 +4,9 @@ import cn.true123.DLException;
 import cn.true123.utils.StringUtil;
 import cn.true123.utils.Utils;
 
-public class DL {
+import java.io.Serializable;
+
+public class DL implements Serializable{
     private String url;
     private long s;
     private long e;
