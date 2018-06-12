@@ -38,8 +38,9 @@ public class ConnectFactory {
     }
 
     public HttpURLConnection getCon(BaseHttpMethod method, Map<String, String> property) throws IOException {
-
+        System.out.println("getCon");
         HttpURLConnection con = method.getBuilder().build();
+        System.out.println("getCon00");
 
         con.setConnectTimeout(CON_TIME_OUT);
         con.setReadTimeout(READ_TIME_OUT);
@@ -55,9 +56,13 @@ public class ConnectFactory {
         if (property == null || !property.containsKey("User-Agent")) {
             con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0");
         }
-
+        System.out.println("getCon222");
+        System.out.println("ssssssssssssssss"+con.getRequestMethod());
         con.connect();
+        System.out.println("getCon11111");
         method.getBuilder().doOutPut(con);
+        System.out.println(" method.getBuilder().doOutPut(con)");
+
         return con;
     }
 

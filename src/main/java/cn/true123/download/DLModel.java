@@ -36,4 +36,12 @@ public class DLModel {
         this.size = size;
     }
 
+    @Override
+    public String toString() {
+        return "DLModel{" +
+                "url='" + url + '\'' +
+                ", acceptRanges='" + acceptRanges + '\'' +
+                ", size=" + size +
+                '}';
+    }
 }

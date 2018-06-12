@@ -1,11 +1,14 @@
 package cn.true123.excuters;
 
-public interface Worker extends Runnable, Cloneable {
-    public void close();
+import cn.true123.listener.DownloadListener;
+import cn.true123.listener.WorkerListener;
 
-    public long getRemainder();
+public interface Worker extends Runnable, Cloneable {
+    public String getId();
 
     public void flush();
 
     public void cancel();
+
+    public void setWorkerListener(WorkerListener listener);
 }

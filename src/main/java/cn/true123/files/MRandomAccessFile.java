@@ -1,5 +1,8 @@
 package cn.true123.files;
 
+import cn.true123.utils.FIleUtil;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -13,7 +16,9 @@ public class MRandomAccessFile extends BaseFile {
 
     public static MRandomAccessFile getInstance(String file, long pos) {
         try {
-            RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+            File f = new File(file);
+            FIleUtil.createFile(f);
+            RandomAccessFile randomAccessFile = new RandomAccessFile(f, "rw");
             randomAccessFile.seek(pos);
             return new MRandomAccessFile(randomAccessFile.getChannel());
         } catch (FileNotFoundException e) {

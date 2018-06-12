@@ -2,12 +2,15 @@ package cn.true123.excuters;
 
 import cn.true123.download.DL;
 import cn.true123.files.MRandomAccessFile;
+import cn.true123.files.PropertiesFileLoader;
 import cn.true123.files.TempFile;
 import cn.true123.files.TempFileFactory;
 import cn.true123.httpClient.DownLoadHttpClient;
 import cn.true123.httpClient.HttpGet;
 import cn.true123.httpClient.IHttpResponse;
 import cn.true123.listener.DownloadListener;
+import cn.true123.listener.WorkerListener;
+import cn.true123.utils.StringUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,10 +21,9 @@ import java.util.Map;
 
 public class DownLoadWorker implements Worker {
     protected DL dl;
-    protected DownloadListener listener;
+    protected WorkerListener listener;
     protected boolean run = true;
     protected TempFile tempFile;
-    long remainder = 0;
 
     public DownLoadWorker(DL dl) {
         this.dl = dl;
@@ -30,21 +32,27 @@ public class DownLoadWorker implements Worker {
     @Override
     public void run() {
         DownLoadHttpClient client = DownLoadHttpClient.getInstance();
-        while (dl.getS() < dl.getE() && run) {
+        while ((dl.getS() < dl.getE()) && run) {
             try {
                 HttpGet get = new HttpGet(dl.getUrl());
+
                 Map property = new HashMap();
+
                 property.put("RANGE", "bytes=" + dl.getS() + "-");
+
                 IHttpResponse res = client.exec(get, property);
                 if (206 != res.getStatusCode() || 200 == res.getStatusCode()) {
                     continue;
                 }
                 InputStream in = res.getInputStream();
-                byte[] b = new byte[in.available()];
+                byte[] b = new byte[1024];
                 int length;
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                 while (run && (length = in.read(b)) > 0 && dl.getS() < dl.getE()) {
-                    ByteBuffer byteBuffer = ByteBuffer.wrap(b);
-                    MRandomAccessFile.getInstance(dl.getFileName(), dl.getS()).write(byteBuffer).close();
+                    byteBuffer.clear();
+                    byteBuffer.put(b,0,length);
+                    String path = PropertiesFileLoader.getInstance().getProperty(StringUtil.getPath("path"));
+                    MRandomAccessFile.getInstance(path+dl.getFileName(), dl.getS()).write(byteBuffer).close();
                     dl.setS(dl.getS() + length);
                     flush();
                 }
@@ -54,47 +62,40 @@ public class DownLoadWorker implements Worker {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-
             }
-            if (dl.getS() <= dl.getE()) {
+            if (dl.getS() >= dl.getE()) {
                 if (listener != null) {
-                    listener.finish();
+                    listener.finish(dl.getId());
                 }
             }
         }
     }
 
-    public DownloadListener getListener() {
-        return listener;
-    }
-
-    public void setListener(DownloadListener listener) {
-        this.listener = listener;
-    }
 
     @Override
-    public void close() {
-
-    }
-
-
-    @Override
-    public long getRemainder() {
-        return remainder;
+    public String getId() {
+        if(dl != null) return dl.getId();
+        return "";
     }
 
     @Override
     public void flush() {
         if (tempFile == null) {
+            System.out.println(TempFileFactory.getInstance());
             tempFile = TempFileFactory.getInstance().getTemFile(dl.getFileName());
         }
         if (tempFile != null) tempFile.setProperty(dl.getId(), dl.toString());
-        remainder = dl.getE() - dl.getS();
+        if(listener != null) listener.onUpgrade();
     }
 
     @Override
     public void cancel() {
         run = false;
         flush();
+    }
+
+    @Override
+    public void setWorkerListener(WorkerListener listener) {
+        this.listener = listener;
     }
 }

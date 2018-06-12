@@ -1,6 +1,8 @@
 package cn.true123.download;
 
 
+import cn.true123.listener.DownloadListener;
+
 public interface DownLoadInterface {
     public void start();
 
@@ -12,5 +14,5 @@ public interface DownLoadInterface {
 
     public void setThreadCount(int count);
 
-    public void setOnDownLoadListener(DownLoaderListener listener);
+    public void setOnDownLoadListener(DownloadListener listener);
 }

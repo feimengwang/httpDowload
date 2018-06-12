@@ -47,7 +47,7 @@ public class SingleThreadDownLoadWorker extends DownLoadWorker {
         }
         if (dl.getS() <= dl.getE()) {
             if (listener != null) {
-                listener.finish();
+                listener.finish(dl.getId());
             }
         }
     }

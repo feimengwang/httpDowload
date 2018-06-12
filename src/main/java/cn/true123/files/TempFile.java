@@ -16,7 +16,7 @@ public final class TempFile extends PropertiesFileImpl{
     }
     public static TempFile getInstance(String fileName) {
         try {
-            File file = new File(fileName);
+            File file = new File(fileName+"_temp");
             FIleUtil.createFile(file);
             InputStream inputStream = new FileInputStream(file);
             return new TempFile(inputStream);

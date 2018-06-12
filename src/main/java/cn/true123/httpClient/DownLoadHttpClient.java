@@ -31,7 +31,9 @@ public class DownLoadHttpClient {
     }
 
     public IHttpResponse exec(BaseHttpMethod method, Map property) throws IOException {
+        System.out.println("exec"+property);
         HttpURLConnection con = ConnectFactory.getInstance().getCon(method, property);
+        System.out.println("con"+con);
         return new HttpResponse(con);
     }
 

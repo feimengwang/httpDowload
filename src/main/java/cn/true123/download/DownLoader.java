@@ -1,5 +1,7 @@
 package cn.true123.download;
 
+import cn.true123.listener.DownloadListener;
+
 public class DownLoader implements DownLoadInterface {
     DownLoaderFactory factory;
     private static DownLoader downloader = new DownLoader();
@@ -34,9 +36,8 @@ public class DownLoader implements DownLoadInterface {
     }
 
     @Override
-    public void setOnDownLoadListener(DownLoaderListener listener) {
+    public void setOnDownLoadListener(DownloadListener listener) {
         factory.setOnDownLoadListener(listener);
-
     }
 
     @Override

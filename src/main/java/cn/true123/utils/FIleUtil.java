@@ -1,5 +1,7 @@
 package cn.true123.utils;
 
+import cn.true123.DLException;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -10,7 +12,7 @@ public class FIleUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e.getMessage());
+                throw new DLException(e.getMessage());
             }
         }
     }
