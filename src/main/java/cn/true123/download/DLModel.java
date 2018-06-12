@@ -1,39 +1,39 @@
 package cn.true123.download;
 
 public class DLModel {
-	private String url;
-	
-	private String acceptRanges;
-	
-	private long size;
+    private String url;
 
-	public String getAcceptRanges() {
-		return acceptRanges;
-	}
+    private String acceptRanges;
 
-	public void setAcceptRanges(String acceptRanges) {
-		this.acceptRanges = acceptRanges;
-	}
+    private long size;
 
-	public String getUrl() {
-		return url;
-	}
+    public String getAcceptRanges() {
+        return acceptRanges;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setAcceptRanges(String acceptRanges) {
+        this.acceptRanges = acceptRanges;
+    }
 
-	public boolean isSupportAcceptRanges() {
-		return null!=acceptRanges;
-	}
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public boolean isSupportAcceptRanges() {
+        return null != acceptRanges;
+    }
 
 
-	public long getSize() {
-		return size;
-	}
+    public long getSize() {
+        return size;
+    }
 
-	public void setSize(long size) {
-		this.size = size;
-	}
+    public void setSize(long size) {
+        this.size = size;
+    }
 
 }

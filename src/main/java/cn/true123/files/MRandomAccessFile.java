@@ -10,11 +10,12 @@ public class MRandomAccessFile extends BaseFile {
     MRandomAccessFile(FileChannel fileChannel) {
         super(fileChannel);
     }
-    public static MRandomAccessFile getInstance(String file,long pos){
+
+    public static MRandomAccessFile getInstance(String file, long pos) {
         try {
-            RandomAccessFile randomAccessFile = new RandomAccessFile(file,"rw");
+            RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
             randomAccessFile.seek(pos);
-            return  new MRandomAccessFile(randomAccessFile.getChannel());
+            return new MRandomAccessFile(randomAccessFile.getChannel());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e.getMessage());
         } catch (IOException e) {

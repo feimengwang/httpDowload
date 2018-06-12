@@ -24,7 +24,7 @@ public class PropertiesFileImpl implements PropertiesFile {
 
     @Override
     public void setProperty(String key, String value) {
-        properties.setProperty(key,value);
+        properties.setProperty(key, value);
     }
 
 }

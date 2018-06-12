@@ -13,11 +13,11 @@ public class PropertiesFileLoader implements PropertiesFile {
 
     private PropertiesFileLoader() {
         InputStream innerInputStream = this.getClass().getClassLoader().getResourceAsStream("dl.properties");
-        if(innerInputStream != null){
+        if (innerInputStream != null) {
             innerProperties = new PropertiesFileImpl(innerInputStream);
         }
         InputStream outInputStream = this.getClass().getClassLoader().getResourceAsStream("./dl.properties");
-        if(outInputStream != null){
+        if (outInputStream != null) {
             outProperties = new PropertiesFileImpl(outInputStream);
         }
 
@@ -36,7 +36,7 @@ public class PropertiesFileLoader implements PropertiesFile {
             }
             return v;
         }
-        return innerProperties != null?innerProperties.getProperty(k):null;
+        return innerProperties != null ? innerProperties.getProperty(k) : null;
     }
 
     @Override

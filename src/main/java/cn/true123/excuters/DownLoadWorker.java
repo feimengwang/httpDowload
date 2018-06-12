@@ -22,9 +22,11 @@ public class DownLoadWorker implements Worker {
     protected boolean run = true;
     protected TempFile tempFile;
     long remainder = 0;
-    public DownLoadWorker(DL dl){
+
+    public DownLoadWorker(DL dl) {
         this.dl = dl;
     }
+
     @Override
     public void run() {
         DownLoadHttpClient client = DownLoadHttpClient.getInstance();
@@ -32,9 +34,9 @@ public class DownLoadWorker implements Worker {
             try {
                 HttpGet get = new HttpGet(dl.getUrl());
                 Map property = new HashMap();
-                property.put("RANGE",  "bytes=" + dl.getS() + "-");
+                property.put("RANGE", "bytes=" + dl.getS() + "-");
                 IHttpResponse res = client.exec(get, property);
-                if(206 != res.getStatusCode() || 200 == res.getStatusCode()){
+                if (206 != res.getStatusCode() || 200 == res.getStatusCode()) {
                     continue;
                 }
                 InputStream in = res.getInputStream();
@@ -42,8 +44,8 @@ public class DownLoadWorker implements Worker {
                 int length;
                 while (run && (length = in.read(b)) > 0 && dl.getS() < dl.getE()) {
                     ByteBuffer byteBuffer = ByteBuffer.wrap(b);
-                    MRandomAccessFile.getInstance(dl.getFileName(),dl.getS()).write(byteBuffer).close();
-                    dl.setS(dl.getS()+length);
+                    MRandomAccessFile.getInstance(dl.getFileName(), dl.getS()).write(byteBuffer).close();
+                    dl.setS(dl.getS() + length);
                     flush();
                 }
                 res.close();
@@ -51,11 +53,11 @@ public class DownLoadWorker implements Worker {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
 
             }
-            if(dl.getS()<=dl.getE()){
-                if(listener != null){
+            if (dl.getS() <= dl.getE()) {
+                if (listener != null) {
                     listener.finish();
                 }
             }
@@ -83,11 +85,11 @@ public class DownLoadWorker implements Worker {
 
     @Override
     public void flush() {
-        if(tempFile == null){
+        if (tempFile == null) {
             tempFile = TempFileFactory.getInstance().getTemFile(dl.getFileName());
         }
-        if(tempFile != null)tempFile.setProperty(dl.getId(),dl.toString());
-        remainder = dl.getE()-dl.getS();
+        if (tempFile != null) tempFile.setProperty(dl.getId(), dl.toString());
+        remainder = dl.getE() - dl.getS();
     }
 
     @Override

@@ -2,21 +2,21 @@ package cn.true123.httpClient;
 
 public class HttpPost extends BaseHttpMethod {
 
-	@Override
-	public String getMethod() {
-		return POST;
-	}
+    @Override
+    public String getMethod() {
+        return POST;
+    }
 
-	public HttpPost() {
-	}
+    public HttpPost() {
+    }
 
-	public HttpPost(String url) {
-		super(url);
-	}
+    public HttpPost(String url) {
+        super(url);
+    }
 
-	@Override
-	protected BaseBuilder getBuilder() {
-		return new PostConnectBuilder(this);
-	}
-	
+    @Override
+    protected BaseBuilder getBuilder() {
+        return new PostConnectBuilder(this);
+    }
+
 }

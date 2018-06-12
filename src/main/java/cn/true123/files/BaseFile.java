@@ -16,6 +16,7 @@ public abstract class BaseFile implements FileInterface {
     public FileChannel getFileChannel() {
         return fileChannel;
     }
+
     public int read(ByteBuffer byteBuffer) throws IOException {
         return fileChannel.read(byteBuffer);
     }
@@ -32,7 +33,7 @@ public abstract class BaseFile implements FileInterface {
 
     @Override
     public void close() {
-        if(fileChannel!=null){
+        if (fileChannel != null) {
             try {
                 fileChannel.close();
             } catch (IOException e) {

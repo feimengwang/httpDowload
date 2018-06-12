@@ -15,11 +15,11 @@ public class FIleUtil {
         }
     }
 
-    public static void deleteAndCreateFile(File file){
-        if(file != null && file.exists()){
+    public static void deleteAndCreateFile(File file) {
+        if (file != null && file.exists()) {
             file.delete();
         }
-        if(file != null){
+        if (file != null) {
             createFile(file);
         }
     }

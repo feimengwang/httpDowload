@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
 
 public class SingleThreadDownLoadWorker extends DownLoadWorker {
-    public  SingleThreadDownLoadWorker(DL dl) {
+    public SingleThreadDownLoadWorker(DL dl) {
         super(dl);
     }
 
@@ -30,13 +30,13 @@ public class SingleThreadDownLoadWorker extends DownLoadWorker {
             long available = in.available();
             byte[] b = new byte[1024];
             int length;
-            MRandomAccessFile randomAccessFile = MRandomAccessFile.getInstance(dl.getFileName(),dl.getS());
+            MRandomAccessFile randomAccessFile = MRandomAccessFile.getInstance(dl.getFileName(), dl.getS());
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             while (run && (length = in.read(b)) > 0) {
                 byteBuffer.flip();
-                byteBuffer.put(b,0,length);
+                byteBuffer.put(b, 0, length);
                 randomAccessFile.write(byteBuffer);
-                dl.setS(dl.getS()+length);
+                dl.setS(dl.getS() + length);
                 flush();
             }
             res.close();
@@ -45,8 +45,8 @@ public class SingleThreadDownLoadWorker extends DownLoadWorker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(dl.getS()<=dl.getE()){
-            if(listener != null){
+        if (dl.getS() <= dl.getE()) {
+            if (listener != null) {
                 listener.finish();
             }
         }

@@ -2,20 +2,20 @@ package cn.true123.httpClient;
 
 public class HttpHead extends BaseHttpMethod {
 
-	@Override
-	public String getMethod() {
-		return HEAD;
-	}
+    @Override
+    public String getMethod() {
+        return HEAD;
+    }
 
-	public HttpHead() {
-	}
+    public HttpHead() {
+    }
 
-	public HttpHead(String url) {
-		super(url);
-	}
+    public HttpHead(String url) {
+        super(url);
+    }
 
-	@Override
-	protected BaseBuilder getBuilder() {
-		return new HeadConnectBuilder(this);
-	}
+    @Override
+    protected BaseBuilder getBuilder() {
+        return new HeadConnectBuilder(this);
+    }
 }

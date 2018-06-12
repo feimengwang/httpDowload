@@ -9,19 +9,19 @@ public class StringUtil {
         return (s == null || s.trim().length() == 0);
     }
 
-    public static String getOSName(){
-       String osName =  System.getenv("OS");
-       if(osName != null && osName.indexOf("Windows")>=0){
-           return "win";
-       }else if(osName != null){
-           return "linux";
-       }
-       return "win";
+    public static String getOSName() {
+        String osName = System.getenv("OS");
+        if (osName != null && osName.indexOf("Windows") >= 0) {
+            return "win";
+        } else if (osName != null) {
+            return "linux";
+        }
+        return "win";
     }
 
-    public static String getPath(String path){
+    public static String getPath(String path) {
         String os = getOSName();
-        return path+"_"+os;
+        return path + "_" + os;
     }
 
 }

@@ -7,10 +7,15 @@ import java.util.Map;
 
 public interface IHttpResponse {
 
-	public int getStatusCode() throws IOException;
-	public InputStream getInputStream() throws IOException;
-	public String getContent();
-	public Map<String, List<String>> getHeaders();
-	public String getHeader(String name);
-	public void close();
+    public int getStatusCode() throws IOException;
+
+    public InputStream getInputStream() throws IOException;
+
+    public String getContent();
+
+    public Map<String, List<String>> getHeaders();
+
+    public String getHeader(String name);
+
+    public void close();
 }

@@ -6,21 +6,21 @@ import java.net.URL;
 
 public class HeadConnectBuilder extends BaseBuilder {
 
-	public HeadConnectBuilder(BaseHttpMethod method) {
-		super(method);
-	}
+    public HeadConnectBuilder(BaseHttpMethod method) {
+        super(method);
+    }
 
-	@Override
-	protected HttpURLConnection build() throws IOException {
-		String surl = method.getUrl();
-		
-		URL url = new URL(surl);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+    @Override
+    protected HttpURLConnection build() throws IOException {
+        String surl = method.getUrl();
 
-		con.setRequestMethod(method.getMethod());
+        URL url = new URL(surl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-		return con;
+        con.setRequestMethod(method.getMethod());
 
-	}
+        return con;
+
+    }
 
 }

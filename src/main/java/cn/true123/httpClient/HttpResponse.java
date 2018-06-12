@@ -9,72 +9,72 @@ import java.util.Map;
 
 public class HttpResponse implements IHttpResponse {
 
-	private InputStream inputStream;
-	private HttpURLConnection con;
+    private InputStream inputStream;
+    private HttpURLConnection con;
 
-	public HttpResponse(HttpURLConnection con) {
-		this.con = con;
-	}
+    public HttpResponse(HttpURLConnection con) {
+        this.con = con;
+    }
 
-	@Override
-	public int getStatusCode() throws IOException {
+    @Override
+    public int getStatusCode() throws IOException {
 
-		return con != null ? con.getResponseCode() : -1;
+        return con != null ? con.getResponseCode() : -1;
 
-	}
+    }
 
-	@Override
-	public InputStream getInputStream() throws IOException {
+    @Override
+    public InputStream getInputStream() throws IOException {
 
-		inputStream = null != con ? con.getInputStream() : null;
+        inputStream = null != con ? con.getInputStream() : null;
 
-		return inputStream;
-	}
+        return inputStream;
+    }
 
-	@Override
-	public String getContent() {
-			try {
-				if(inputStream==null){
-					getInputStream();
-				}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		if (inputStream != null) {
-			StringBuffer content = new StringBuffer();
-			BufferedInputStream bufferInputStream = new BufferedInputStream(
-					inputStream);
-			byte[] data = new byte[1024];
-			int length;
-			try {
-				while ((length = bufferInputStream.read(data)) > 0) {
-					content.append(new String(data, 0, length));
-				}
-				return content.toString();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+    @Override
+    public String getContent() {
+        try {
+            if (inputStream == null) {
+                getInputStream();
+            }
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        if (inputStream != null) {
+            StringBuffer content = new StringBuffer();
+            BufferedInputStream bufferInputStream = new BufferedInputStream(
+                    inputStream);
+            byte[] data = new byte[1024];
+            int length;
+            try {
+                while ((length = bufferInputStream.read(data)) > 0) {
+                    content.append(new String(data, 0, length));
+                }
+                return content.toString();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Map<String, List<String>> getHeaders() {
-		return null != con ? con.getHeaderFields() : null;
-	}
+    @Override
+    public Map<String, List<String>> getHeaders() {
+        return null != con ? con.getHeaderFields() : null;
+    }
 
-	@Override
-	public String getHeader(String name) {
-		return null != con ? con.getHeaderField(name) : null;
-	}
+    @Override
+    public String getHeader(String name) {
+        return null != con ? con.getHeaderField(name) : null;
+    }
 
-	@Override
-	public void close() {
-		if (null != null)
-			con.disconnect();
+    @Override
+    public void close() {
+        if (null != null)
+            con.disconnect();
 
-	}
+    }
 
 }

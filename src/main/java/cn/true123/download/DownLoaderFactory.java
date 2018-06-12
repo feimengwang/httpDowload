@@ -10,6 +10,7 @@ import cn.true123.files.TempFileFactory;
 import cn.true123.listener.DownloadListener;
 import cn.true123.utils.ListUtils;
 import cn.true123.utils.StringUtil;
+import cn.true123.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

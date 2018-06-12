@@ -6,8 +6,8 @@ public class Constants {
     public static final String OS = "OS";
 
     //property key thread
-    public static final String TREAD_COUNT="thread";
+    public static final String TREAD_COUNT = "thread";
 
     //property key path
-    public static final String PATH="path";
+    public static final String PATH = "path";
 }
